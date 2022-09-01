@@ -1,10 +1,21 @@
 
-import { Subject } from "./subject";
+import { Subject } from "./subject"
+import { UserFactory } from './user_factory'
+import { ChatFactory } from './chat_factory'
 
-let sub = new Subject()
-let b = new Subject()
+let userJose = UserFactory.of("Jose", "jose@mail.com", new Subject())
+let userCarlos = UserFactory.of("Carlos", "carlos@mail.com", new Subject())
 
+let chatJose = ChatFactory.of(userJose)
+let chatCarlos = ChatFactory.of(userCarlos)
 
-// sub.notify()
+userJose.subject.register(chatCarlos)
+userCarlos.subject.register(chatJose)
 
-b.notify()
+userJose.subject.notify("Teste de mensagem do Jose")
+userCarlos.subject.notify("Teste de mensagem do Carlos")
+
+userCarlos.subject.unregister(chatJose)
+
+userJose.subject.notify("Segundo teste de mensagem do Jose")
+userCarlos.subject.notify("Segundo teste de mensagem do Carlos")

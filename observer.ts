@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface Observer {
-    notify()
+    notify(message?: String, user?: User)
 }

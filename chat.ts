@@ -6,10 +6,11 @@ export class Chat implements Observer {
 
     constructor(user: User) {
         this.#user = user
+        this.user.subject.register(this)
     }
 
-    notify(message: String) {
-        console.log(this.user.name, " says ", message)
+    notify(message: String, userSender: User) {
+        console.log(userSender.name, "says [", message, "] to", this.user.name)
     }
 
     get user():User {
